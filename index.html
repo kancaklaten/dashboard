@@ -2,46 +2,122 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Login Page</title>
+  <title>Login & Dashboard MBAM</title>
   <style>
-    body { font-family: Arial; background: #f0f0f0; padding: 40px; }
-    .login-box {
-      background: #fff;
-      padding: 20px;
-      max-width: 300px;
-      margin: auto;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    body {
+      font-family: Arial, sans-serif;
+      background: #e9f1f8;
+      margin: 0;
+      padding: 0;
     }
-    input { width: 100%; padding: 10px; margin: 8px 0; }
-    button { padding: 10px; width: 100%; background: #007BFF; color: white; border: none; }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      margin-top: 50px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+    }
+    .dashboard button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .red { background: #c0392b; }
+    .green { background: #27ae60; }
+    .blue { background: #2980b9; }
+    .gray { background: #7f8c8d; }
+    .logout {
+      margin-top: 20px;
+      background: #333;
+    }
+    .warning {
+      color: red;
+      margin-top: 15px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2>Login</h2>
-    <form onsubmit="return loginCheck();">
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-    <p id="message" style="color:red;"></p>
+
+<div class="container">
+  <div id="login-box" class="login-box">
+    <h2>Login Dashboard</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="handleLogin()">Login</button>
+    <p id="login-error" style="color:red;"></p>
   </div>
 
-  <script>
-    function loginCheck() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      
-      // Dummy validasi (hanya lokal)
-      if (user === "admin" && pass === "admin") {
-        alert("Login berhasil!");
-        return true;
-      } else {
-        document.getElementById('message').innerText = "Username atau password salah.";
-        return false;
-      }
+  <div id="dashboard" class="dashboard" style="display:none;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Bank_Rakyat_Indonesia.svg" width="100" alt="BRI Logo">
+    <h2>DASHBOARD DATA MBAM</h2>
+    <p>Pilih data yang tersedia:</p>
+
+    <button class="red" onclick="goTo('https://example.com/aktivitas-harian')">🔒 RENCANA AKTIVITAS HARIAN MBM</button>
+    <button class="green" onclick="goTo('https://example.com/new-sml')">📁 NEW SML 31 MEI 2025</button>
+    <button class="green" onclick="goTo('https://example.com/cnpl')">📁 CNPL JUNI 2025</button>
+    <button class="green" onclick="goTo('https://example.com/realisasi-harian')">📁 REAL TIME REALISASI HARIAN JUNI 2025</button>
+    <button class="green" onclick="goTo('https://example.com/tunggakan-kecil')">📁 TUNGGAKAN KECIL HARIAN</button>
+    <button class="green" onclick="goTo('https://example.com/tunggakan-simpanan')">📁 TUNGGAKAN PUNYA SIMPANAN HARIAN</button>
+    <button class="blue" onclick="goTo('https://example.com/kinerja-wilayah')">📁 KINERJA HARIAN WILAYAH MBAM 2025</button>
+    <button class="blue" onclick="goTo('https://example.com/lw321')">📁 LW321 2025</button>
+    <button class="blue" onclick="goTo('https://example.com/klaim-april')">📁 DATA KEKURANGAN KLAIM APRIL 2025</button>
+    <button class="blue" onclick="goTo('https://example.com/ekspansi')">📁 PIPELINE EKSPANSI UPDATE 31 MEI 2025</button>
+    <button class="blue" onclick="goTo('https://example.com/agf-aft')">📁 DATA PINJAMAN BELUM AGF & AFT</button>
+    <button class="blue" onclick="goTo('https://example.com/mantri')">📁 DATA MANTRI BELUM REAL</button>
+    <button class="blue" onclick="goTo('https://example.com/materi-ketentuan')">📁 MATERI & KETENTUAN</button>
+
+    <div class="warning">
+      ⚠️ Perhatian: Data ini bersifat <strong>INTERNAL</strong> dan tidak untuk dibagikan ke pihak luar.
+    </div>
+
+    <button class="logout" onclick="logout()">⬅️ Logout</button>
+  </div>
+</div>
+
+<script>
+  function handleLogin() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    const error = document.getElementById('login-error');
+
+    if (user === 'admin' && pass === 'admin123') {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+    } else {
+      error.innerText = "Username atau password salah.";
     }
-  </script>
+  }
+
+  function goTo(url) {
+    window.location.href = url;
+  }
+
+  function logout() {
+    location.reload();
+  }
+</script>
+
 </body>
 </html>
