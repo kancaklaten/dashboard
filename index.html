@@ -167,6 +167,12 @@
 </div>
 
 <script>
+  document.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    handleLogin();
+  }
+  });
+  
   function handleLogin() {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
