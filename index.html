@@ -3,83 +3,153 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard BO Klaten</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #e9f1f8;
       margin: 0;
       padding: 0;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
+
     .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      margin-top: 50px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 40px 30px;
+      max-width: 400px;
+      width: 90%;
+      transition: 0.3s ease;
     }
-    .login-box input {
+
+    .login-box h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 12px 40px 12px 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border 0.3s ease;
     }
+
+    .input-group input:focus {
+      border-color: #007BFF;
+    }
+
+    .input-group i {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+
     .login-box button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: #007BFF;
       color: white;
       border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
+
+    .login-box button:hover {
+      background: #0056b3;
+    }
+
+    #login-error {
+      margin-top: 15px;
+      color: red;
+      font-size: 14px;
+    }
+
+    .dashboard {
+      display: none;
+      text-align: center;
+    }
+
+    .dashboard h2 {
+      margin-top: 10px;
+    }
+
     .dashboard button {
       display: block;
       width: 100%;
       margin: 10px 0;
-      padding: 15px;
+      padding: 14px;
       font-size: 16px;
       border: none;
       color: white;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: 0.2s;
     }
-    .red { background: #c0392b; }
-    .green { background: #27ae60; }
-    .blue { background: #2980b9; }
-    .gray { background: #7f8c8d; }
-    .logout {
-      margin-top: 20px;
-      background: #333;
-    }
+
+    .green { background: #2ecc71; }
+    .green:hover { background: #27ae60; }
+
+    .red { background: #e74c3c; }
+    .red:hover { background: #c0392b; }
+
     .warning {
-      color: red;
+      color: #c0392b;
       margin-top: 15px;
       font-size: 14px;
+    }
+
+    @media screen and (max-width: 500px) {
+      .container {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
 <body>
 
 <div class="container">
+  <!-- Login Box -->
   <div id="login-box" class="login-box">
     <h2>Login Dashboard</h2>
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Username" required>
+      <i>👤</i>
+    </div>
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Password" required>
+      <i>🔒</i>
+    </div>
     <button onclick="handleLogin()">Login</button>
-    <p id="login-error" style="color:red;"></p>
+    <p id="login-error"></p>
   </div>
 
-  <div id="dashboard" class="dashboard" style="display:none;">
+  <!-- Dashboard -->
+  <div id="dashboard" class="dashboard">
     <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg" width="100" alt="BRI Logo">
     <h2>DASHBOARD DATA BO KLATEN</h2>
-<!--     <p>Pilih data yang tersedia:</p> -->
 
-    <button class="green" onclick="goTo('https://example.com/aktivitas-harian')">🔒 </button>
-    <button class="green" onclick="goTo('https://example.com/new-sml')">📁 </button>
-    <button class="green" onclick="goTo('https://example.com/cnpl')">📁 </button>
+    <button class="green" onclick="goTo('https://example.com/aktivitas-harian')">🔒 RENCANA AKTIVITAS HARIAN</button>
+    <button class="green" onclick="goTo('https://example.com/new-sml')">📁 NEW SML 31 MEI 2025</button>
+    <button class="green" onclick="goTo('https://example.com/cnpl')">📁 CNPL JUNI 2025</button>
 
     <div class="warning">
-      ⚠️ Perhatian: Data ini bersifat <strong>INTERNAL</strong> dan tidak untuk dibagikan ke pihak luar.
+      ⚠️ Data ini bersifat <strong>INTERNAL</strong> dan tidak untuk dibagikan ke pihak luar.
     </div>
 
     <button class="red" onclick="logout()">Logout</button>
@@ -92,11 +162,11 @@
     const pass = document.getElementById('password').value;
     const error = document.getElementById('login-error');
 
-    if (user === 'admin' && pass === 'admin123') {
+    if (user === 'admin' && pass === 'admin') {
       document.getElementById('login-box').style.display = 'none';
       document.getElementById('dashboard').style.display = 'block';
     } else {
-      error.innerText = "Username atau password salah.";
+      error.innerText = "❌ Username atau password salah.";
     }
   }
 
