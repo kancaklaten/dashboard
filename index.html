@@ -32,31 +32,39 @@
     }
 
     .input-group {
-      position: relative;
-      margin-bottom: 20px;
-    }
+    position: relative;
+    margin-bottom: 20px;
+  }
 
-    .input-group input {
-      width: 100%;
-      padding: 12px 40px 12px 14px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      outline: none;
-      transition: border 0.3s ease;
-    }
+  .input-group input,
+  .login-box button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
 
-    .input-group input:focus {
-      border-color: #007BFF;
-    }
+  .login-box button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
 
-    .input-group i {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #aaa;
-    }
+  .login-box button:hover {
+    background: #0056b3;
+  }
+
+  .input-group i {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+  }
 
     .login-box button {
       width: 100%;
